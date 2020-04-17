@@ -1,0 +1,21 @@
+#if(!$util.matches("[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}", $ctx.args.id))
+  $util.error("invalid id format")
+#end
+{
+  "version" : "2018-05-29",
+  "operation" : "PutItem",
+  "key" : {
+      "id" : $util.dynamodb.toDynamoDBJson($ctx.args.id)
+  },
+  "attributeValues" : $util.dynamodb.toMapValuesJson({
+    "creatorIp": $ctx.identity.sourceIp[0],
+    "publicId": $util.autoId(),
+    "status": "STARTED",
+    "createdAt": $util.time.nowISO8601(),
+    "statusChangedAt": $util.time.nowISO8601(),
+    "speakers": {}
+  }),
+  "condition" : {
+    "expression" : "attribute_not_exists(id)"
+  }
+}

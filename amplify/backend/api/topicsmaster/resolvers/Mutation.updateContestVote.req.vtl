@@ -1,0 +1,18 @@
+{
+  "version" : "2018-05-29",
+  "operation" : "UpdateItem",
+  "key" : {
+      "id" : $util.dynamodb.toDynamoDBJson($ctx.args.input.id)
+  },
+  "update" : {
+    "expression" : "set voterName = :v, #winners = :w, statusChangedAt = :c",
+    "expressionNames" : {
+      "#winners" : "winners"
+    },
+    "expressionValues" : {
+      ":v" : $util.dynamodb.toDynamoDBJson($ctx.args.input.voterName),
+      ":w" : $util.dynamodb.toDynamoDBJson($ctx.args.input.winners),
+      ":c" : $util.dynamodb.toDynamoDBJson($util.time.nowISO8601())
+    }
+  }
+}

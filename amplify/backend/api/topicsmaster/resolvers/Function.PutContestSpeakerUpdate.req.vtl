@@ -1,0 +1,22 @@
+{
+  "version" : "2018-05-29",
+  "operation" : "UpdateItem",
+  "key" : {
+      "id" : $util.dynamodb.toDynamoDBJson($ctx.args.input.contestId)
+  },
+  "update": {
+    "expression": "set speakers.#speakerId.id = :i, speakers.#speakerId.createdAt = if_not_exists(speakers.#speakerId.createdAt, :c), speakers.#speakerId.#name = :n, speakers.#speakerId.wordOfTheDay = :w, speakers.#speakerId.#time = :t",
+    "expressionNames" : {
+      "#speakerId" : "$ctx.args.input.id",
+      "#name": "name",
+      "#time": "time"
+    },
+    "expressionValues" : {
+      ":i" : $util.dynamodb.toDynamoDBJson($ctx.args.input.id),
+      ":c" : $util.dynamodb.toDynamoDBJson($util.time.nowISO8601()),
+      ":n" : $util.dynamodb.toDynamoDBJson($ctx.args.input.name),
+      ":w" : $util.dynamodb.toDynamoDBJson($ctx.args.input.wordOfTheDay),
+      ":t" : $util.dynamodb.toDynamoDBJson($ctx.args.input.time)
+    }
+  }
+}

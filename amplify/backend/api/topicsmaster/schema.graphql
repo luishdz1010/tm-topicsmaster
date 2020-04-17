@@ -1,0 +1,106 @@
+type Query {
+  findContestById(id: ID!): Contest
+  findContestByPublicId(publicId: ID!): Contest
+}
+
+type Mutation {
+  createContest(id: ID!): Contest
+  putContestSpeaker(input: PutContestSpeakerInput!): Contest
+  deleteContestSpeaker(contestId: ID!, speakerId: ID!): Contest
+  openContestForVotes(contestId: ID!): Contest
+  endContest(input: EndContestInput): Contest
+
+  createContestVote(input: CreateContestVoteInput!): ContestVoteEvent
+  updateContestVote(input: UpdateContestVoteInput!): ContestVoteEvent
+}
+
+type Subscription {
+  onUpdateContest(publicId: ID!): Contest
+    @aws_subscribe(
+      mutations: [
+        "putContestSpeaker"
+        "deleteContestSpeaker"
+        "openContestForVotes"
+        "endContest"
+      ]
+    )
+
+  onContestVoteChange(contestPublicId: ID!): ContestVoteEvent
+    @aws_subscribe(mutations: ["createContestVote", "updateContestVote"])
+}
+
+type Contest
+  @model(mutations: null, subscriptions: null, queries: null)
+  @key(name: "byPublicId", fields: ["publicId"]) {
+  id: ID
+  creatorIp: AWSIPAddress
+  endNotes: String
+  publicId: ID!
+  status: ContestStatus!
+  createdAt: AWSDateTime!
+  statusChangedAt: AWSDateTime!
+  speakers: [Speaker!]!
+  votes(contestId: ID!): [ContestVote!]
+  winners: [String!]
+}
+
+enum ContestStatus {
+  STARTED
+  VOTING
+  ENDED
+}
+
+type Speaker {
+  id: ID!
+  name: String!
+  wordOfTheDay: Boolean!
+  time: String
+  createdAt: AWSDateTime!
+}
+
+type ContestVote
+  @model(mutations: null, subscriptions: null, queries: null)
+  @key(name: "byContestPublicId", fields: ["contestPublicId"]) {
+  id: ID
+  creatorIp: AWSIPAddress
+  voterName: String
+  winners: [ID!]
+  contestPublicId: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime
+}
+
+type ContestVoteEvent {
+  contestPublicId: ID!
+}
+
+input PutContestSpeakerInput {
+  contestId: ID!
+  id: ID!
+  name: String!
+  wordOfTheDay: Boolean
+  time: String
+}
+
+input EndContestInput {
+  contestId: ID!
+  winners: [String!]!
+  notes: String
+}
+
+input CreateContestVoteInput {
+  id: ID!
+  contestPublicId: ID!
+  voterName: String!
+}
+
+input UpdateContestVoteInput {
+  id: ID!
+  voterName: String!
+  winners: [ID!]!
+}
+
+# Needed because all we have are "empty" @models
+input ModelAttributeTypes {
+  dummy: Boolean
+}

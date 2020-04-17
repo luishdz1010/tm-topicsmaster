@@ -1,0 +1,6 @@
+#if($ctx.source.status == 'ENDED'
+    && $util.time.nowEpochMilliSeconds() - $util.time.parseISO8601ToEpochMilliSeconds($ctx.source.statusChangedAt) > 1000 * 60 * 60  )
+  $util.toJson($ctx.source.winners)
+#else
+  null
+#end

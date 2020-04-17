@@ -1,0 +1,16 @@
+{
+  "version" : "2018-05-29",
+  "operation" : "UpdateItem",
+  "key" : {
+      "id" : $util.dynamodb.toDynamoDBJson($ctx.args.input.contestId)
+  },
+  "update": {
+    "expression": "set speakers.#speakerId = if_not_exists(speakers.#speakerId, :emptyDict)",
+    "expressionNames" : {
+      "#speakerId" : "$ctx.args.input.id"
+    },
+    "expressionValues" : {
+      ":emptyDict" : $util.dynamodb.toDynamoDBJson({})
+    }
+  }
+}

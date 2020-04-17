@@ -1,0 +1,14 @@
+#if(!($ctx.args.contestId == $ctx.source.id))
+  $util.unauthorized()
+#end
+{
+  "version" : "2018-05-29",
+  "operation" : "Query",
+  "index" : "byContestPublicId",
+  "query" : {
+    "expression" : "contestPublicId = :p",
+    "expressionValues" : {
+      ":p" : $util.dynamodb.toDynamoDBJson($ctx.source.publicId)
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "version" : "2018-05-29",
+  "operation" : "UpdateItem",
+  "key" : {
+      "id" : $util.dynamodb.toDynamoDBJson($ctx.args.contestId)
+  },
+  "update": {
+    "expression": "remove speakers.#speakerId",
+    "expressionNames" : {
+      "#speakerId" : "$ctx.args.speakerId"
+    }
+  }
+}

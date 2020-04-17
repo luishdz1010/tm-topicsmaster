@@ -1,0 +1,11 @@
+{
+  "version" : "2018-05-29",
+  "operation" : "Query",
+  "index" : "byPublicId",
+  "query" : {
+    "expression" : "publicId = :publicId",
+    "expressionValues" : {
+      ":publicId" : $util.dynamodb.toDynamoDBJson($ctx.stash.publicId)
+    }
+  }
+}

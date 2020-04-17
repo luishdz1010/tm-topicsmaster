@@ -1,0 +1,20 @@
+#if(!$util.matches("[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}", $ctx.args.input.id))
+  $util.error("invalid id format")
+#end
+{
+  "version" : "2018-05-29",
+  "operation" : "PutItem",
+  "key" : {
+      "id" : $util.dynamodb.toDynamoDBJson($ctx.args.input.id)
+  },
+  "attributeValues" : $util.dynamodb.toMapValuesJson({
+    "contestPublicId": $ctx.args.input.contestPublicId,
+    "creatorIp": $ctx.identity.sourceIp[0],
+    "createdAt": $util.time.nowISO8601(),
+    "voterName": $ctx.args.input.voterName,
+    "winners": []
+  }),
+  "condition" : {
+    "expression" : "attribute_not_exists(id)"
+  }
+}
