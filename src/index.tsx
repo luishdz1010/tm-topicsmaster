@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import Amplify from 'aws-amplify'
 import awsconfig from './aws-exports'
 import { ApolloProvider } from 'react-apollo'
 import {
@@ -14,8 +13,6 @@ import {
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core'
 import { BrowserRouter } from 'react-router-dom'
 import { SnackbarProvider } from 'notistack'
-
-Amplify.configure(awsconfig)
 
 const client = new AWSAppSyncClient({
   url: awsconfig.aws_appsync_graphqlEndpoint,

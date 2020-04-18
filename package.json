@@ -18,6 +18,7 @@
     "apollo-client": "^2.6.8",
     "aws-amplify": "^3.0.8",
     "aws-appsync": "^3.0.3",
+    "aws-sdk": "^2.658.0",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
     "lodash": "^4.17.15",
@@ -47,7 +48,9 @@
     "prettier": "^2.0.4"
   },
   "resolutions": {
-    "apollo-client": "^2.6.8"
+    "apollo-client": "^2.6.8",
+    "graphql": "^15.0.0",
+    "aws-sdk": "^2.658.0"
   },
   "eslintConfig": {
     "extends": "react-app",

@@ -11,7 +11,9 @@ import {
   Typography,
 } from '@material-ui/core'
 import { ContestPublicProjection, ContestVote, GradedSpeaker } from '../types'
-import { sortBy, uniq, compact } from 'lodash'
+import sortBy from 'lodash/sortBy'
+import uniq from 'lodash/uniq'
+import compact from 'lodash/compact'
 import {
   ContestStatus,
   UpdateContestVoteMutation,

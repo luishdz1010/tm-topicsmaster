@@ -16,7 +16,8 @@ import {
 import { CSSProperties, FC, FormEvent, useEffect, useState } from 'react'
 import { ContestOwnerProjection } from '../types'
 import { Autocomplete } from '@material-ui/lab'
-import { compact, sortBy } from 'lodash'
+import compact from 'lodash/compact'
+import sortBy from 'lodash/sortBy'
 import { useMutation } from '@apollo/react-hooks'
 import DeleteIcon from '@material-ui/icons/Delete'
 import SaveIcon from '@material-ui/icons/Save'
@@ -244,7 +245,11 @@ const SpeakerItem: FC<{
       clone
     >
       <form autoComplete="off" onSubmit={onSubmit}>
-        <SpeakerNameInput {...name} suggestedNames={suggestedNames} disabled={!canEdit} />
+        <SpeakerNameInput
+          {...name}
+          suggestedNames={suggestedNames}
+          disabled={!canEdit}
+        />
         <TextField {...time} disabled={!canEdit} />
         <WordOfTheDayInput {...wordOfTheDay} disabled={!canEdit} />
 
