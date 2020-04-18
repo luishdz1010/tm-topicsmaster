@@ -18,7 +18,9 @@ export const CONTEST_OWNER_PROJECTION = gql`
 
 export const VOTE = gql`
   fragment Vote on ContestVote {
+    contestPublicId
     voterName
+    createdAt
     winners
   }
 `

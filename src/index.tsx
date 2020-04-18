@@ -30,7 +30,7 @@ const client = new AWSAppSyncClient({
       switch (object.__typename) {
         case 'Contest':
           return object.publicId
-        case 'voterName':
+        case 'ContestVote':
           return `${object.contestPublicId}:${object.voterName}_${object.createdAt}`
         default:
           return defaultDataIdFromObject(object)

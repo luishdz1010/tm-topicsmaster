@@ -1,17 +1,13 @@
 import gql from 'graphql-tag'
-import { CONTEST_OWNER_PROJECTION, VOTE } from './fragments'
+import { CONTEST_OWNER_PROJECTION } from './fragments'
 
 export const CREATE_CONTEST = gql`
   mutation CreateContest($id: ID!) {
     createContest(id: $id) {
       ...ContestOwnerProjection
-      votes(contestId: $id) {
-        ...Vote
-      }
     }
   }
   ${CONTEST_OWNER_PROJECTION}
-  ${VOTE}
 `
 
 export const PUT_CONTEST_SPEAKER = gql`
@@ -49,7 +45,6 @@ export const END_CONTEST = gql`
   }
   ${CONTEST_OWNER_PROJECTION}
 `
-
 
 export const CREATE_CONTEST_VOTE = gql`
   mutation CreateContestVote($input: CreateContestVoteInput!) {

@@ -54,11 +54,6 @@ export type CreateContestMutation = {
       createdAt: string,
     } >,
     winners: Array< string > | null,
-    votes:  Array< {
-      __typename: "ContestVote",
-      voterName: string | null,
-      winners: Array< string > | null,
-    } > | null,
   } | null,
 };
 
@@ -194,7 +189,9 @@ export type FindContestQuery = {
     winners: Array< string > | null,
     votes:  Array< {
       __typename: "ContestVote",
+      contestPublicId: string,
       voterName: string | null,
+      createdAt: string,
       winners: Array< string > | null,
     } > | null,
   } | null,
@@ -223,7 +220,6 @@ export type FindContestByPublicIdQuery = {
 };
 
 export type OnUpdateContestSubscriptionVariables = {
-  id: string,
   contestPublicId: string,
 };
 
@@ -242,11 +238,6 @@ export type OnUpdateContestSubscription = {
       createdAt: string,
     } >,
     winners: Array< string > | null,
-    votes:  Array< {
-      __typename: "ContestVote",
-      voterName: string | null,
-      winners: Array< string > | null,
-    } > | null,
   } | null,
 };
 
@@ -301,7 +292,9 @@ export type ContestOwnerProjectionFragment = {
 
 export type VoteFragment = {
   __typename: "ContestVote",
+  contestPublicId: string,
   voterName: string | null,
+  createdAt: string,
   winners: Array< string > | null,
 };
 

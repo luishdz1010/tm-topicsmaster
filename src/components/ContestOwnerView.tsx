@@ -23,7 +23,7 @@ import {
   OnUpdateContestSubscriptionVariables,
 } from '../API'
 import GraphQLError from './GraphQLError'
-import { Redirect, useParams } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import ContestOwnerSpeakers from './ContestOwnerSpeakers'
 import { ContestOwnerProjection } from '../types'
 import {
@@ -119,7 +119,7 @@ const Contest: FC<{
 }
 
 const ContestOwnerView: FunctionComponent = () => {
-  const { contestId } = useParams<{ contestId: string }>()
+  const contestId = useContestOwnerId()
   const { data, error, loading, refetch } = useQuery<
     FindContestQuery,
     FindContestQueryVariables
@@ -136,7 +136,7 @@ const ContestOwnerView: FunctionComponent = () => {
     OnUpdateContestSubscriptionVariables
   >(ON_UPDATE_CONTEST, {
     skip: !contest,
-    variables: { id: contestId, contestPublicId },
+    variables: { contestPublicId },
   })
 
   const { error: voteSubscriptionError } = useSubscription<
