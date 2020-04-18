@@ -184,94 +184,100 @@ const SpeakerItem: FC<{
 }
 export const ContestPublicGrader: FC<{
   isGrading: boolean
-  speakers: Array<GradedSpeaker | null>
+  speakers: Array<GradedSpeaker>
   onGradeChange: (id: string, grade: SpeakerGrade) => void
-}> = ({ speakers, isGrading, onGradeChange }) => (
-  <Box
-    display="flex"
-    flexDirection="column"
-    css={
-      {
-        transition: 'all 600ms ease',
-        opacity: !isGrading ? 0.4 : 1,
-        pointerEvents: !isGrading ? 'none' : 'inherit',
-        userSelect: 'none',
-        filter: !isGrading ? 'grayscale(1)' : 'none',
-      } as const
-    }
-  >
-    <Box
-      display="grid"
-      width="100%"
-      gridGap={{ xs: 32, md: 16 }}
-      gridTemplateColumns={{
-        xs: '100%',
-        md: '20px 160px repeat(3, 1fr) 65px 80px 50px',
-      }}
-      gridAutoRows="minmax(32px, auto)"
-      alignItems="center"
-      justifyItems="center"
-      marginTop={4}
-      marginBottom={4}
-      bgcolor={{ md: 'common.white' }}
-      padding={{ md: 3 }}
-      borderRadius="borderRadius"
-      boxShadow={{ md: 1 }}
-    >
-      {speakers.length === 0 && (
-        <Box
-          padding={2}
-          bgcolor="common.white"
-          borderRadius="borderRadius"
-          display={{ md: 'none' }}
-          width="100%"
-          clone
-        >
-          <Typography color="textSecondary" align="center">
-            Speakers will appear here shortly
-          </Typography>
-        </Box>
-      )}
+}> = ({ speakers, isGrading, onGradeChange }) => {
+  const speakersOrEmpty: Array<GradedSpeaker | null> = [
+    ...Array(Math.max(8, speakers.length)).keys(),
+  ].map((i) => speakers[i] || null)
 
-      <Box display={{ xs: 'none', md: 'contents' }}>
-        <Header> </Header>
-        <Header>Speaker</Header>
-        <Header>Pose</Header>
-        <Header>Development</Header>
-        <Header>Theme</Header>
-        <Header>Word of the Day</Header>
-        <Header>Time</Header>
-        <Header>Total Points</Header>
+  return (
+    <Box
+      display="flex"
+      flexDirection="column"
+      css={
+        {
+          transition: 'all 600ms ease',
+          opacity: !isGrading ? 0.4 : 1,
+          pointerEvents: !isGrading ? 'none' : 'inherit',
+          userSelect: 'none',
+          filter: !isGrading ? 'grayscale(1)' : 'none',
+        } as const
+      }
+    >
+      <Box
+        display="grid"
+        width="100%"
+        gridGap={{ xs: 32, md: 16 }}
+        gridTemplateColumns={{
+          xs: '100%',
+          md: '20px 160px repeat(3, 1fr) 65px 80px 50px',
+        }}
+        gridAutoRows="minmax(32px, auto)"
+        alignItems="center"
+        justifyItems="center"
+        marginTop={4}
+        marginBottom={4}
+        bgcolor={{ md: 'common.white' }}
+        padding={{ md: 3 }}
+        borderRadius="borderRadius"
+        boxShadow={{ md: 1 }}
+      >
+        {speakers.length === 0 && (
+          <Box
+            padding={2}
+            bgcolor="common.white"
+            borderRadius="borderRadius"
+            display={{ md: 'none' }}
+            width="100%"
+            clone
+          >
+            <Typography color="textSecondary" align="center">
+              Speakers will appear here shortly
+            </Typography>
+          </Box>
+        )}
+
+        <Box display={{ xs: 'none', md: 'contents' }}>
+          <Header> </Header>
+          <Header>Speaker</Header>
+          <Header>Pose</Header>
+          <Header>Development</Header>
+          <Header>Theme</Header>
+          <Header>Word of the Day</Header>
+          <Header>Time</Header>
+          <Header>Total Points</Header>
+        </Box>
+
+        {speakersOrEmpty.map((s, idx) => (
+          <SpeakerItem
+            key={s?.id || idx}
+            speaker={s}
+            index={idx}
+            onGradeChange={onGradeChange}
+          />
+        ))}
       </Box>
 
-      {speakers.map((s, idx) => (
-        <SpeakerItem
-          key={s?.id || idx}
-          speaker={s}
-          index={idx}
-          onGradeChange={onGradeChange}
-        />
-      ))}
+      <Box mb={6}>
+        <Typography gutterBottom>
+          Grade each speaker as they appear above using the following criteria:
+        </Typography>
+
+        <Typography gutterBottom>
+          <strong>Pose:</strong> Was the speech enhanced by appropriate
+          non-verbal gestures that reinforced the strength of the idea?
+        </Typography>
+        <Typography gutterBottom>
+          <strong>Development:</strong> Was there a clear and coherent structure
+          to the speech between intro, body and conclusion?
+        </Typography>
+
+        <Typography>
+          <strong>Theme: </strong>Was the speech aligned to what was asked as a
+          Table Topic question?
+        </Typography>
+      </Box>
     </Box>
-
-    <Box mb={6}>
-      <Typography gutterBottom>
-        Grade each speaker as they appear above using the following criteria:
-      </Typography>
-
-      <Typography gutterBottom>
-        <strong>Pose:</strong> Was the speech enhanced by appropriate non-verbal
-        gestures that reinforced the strength of the idea?
-      </Typography>
-      <Typography gutterBottom>
-        <strong>Development:</strong> Was there a clear and coherent structure
-        to the speech between intro, body and conclusion?
-      </Typography>
-
-      <Typography>
-        <strong>Theme: </strong>Was the speech aligned to what was asked as a
-        Table Topic question?
-      </Typography>
-    </Box>
-  </Box>
-)
+  )
+}

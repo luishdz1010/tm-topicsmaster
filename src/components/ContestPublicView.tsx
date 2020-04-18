@@ -14,12 +14,7 @@ import useContestPublicId from '../lib/useContestPublicId'
 import { ON_UPDATE_PUBLIC_CONTEST } from '../graphql/subscriptions'
 import { Box, CircularProgress, Typography } from '@material-ui/core'
 import GraphQLError from './GraphQLError'
-import {
-  ContestPublicProjection,
-  ContestVote,
-  GradedSpeaker,
-  SpeakerGrade,
-} from '../types'
+import { ContestPublicProjection, ContestVote, SpeakerGrade } from '../types'
 import { Redirect } from 'react-router-dom'
 import { sortBy } from 'lodash'
 import useLocalStorageState from 'use-local-storage-state'
@@ -62,10 +57,6 @@ const ContestPublic: FC<{
     })
   }, [speakers, gradings])
 
-  const speakersOrEmpty: Array<GradedSpeaker | null> = [
-    ...Array(Math.max(8, gradedSpeakers.length)).keys(),
-  ].map((i) => gradedSpeakers[i] || null)
-
   const isGrading =
     contest.status === ContestStatus.STARTED ||
     contest.status === ContestStatus.VOTING
@@ -77,7 +68,7 @@ const ContestPublic: FC<{
       </Typography>
 
       <ContestPublicGrader
-        speakers={speakersOrEmpty}
+        speakers={gradedSpeakers}
         onGradeChange={onGradeChange}
         isGrading={isGrading}
       />
@@ -121,7 +112,7 @@ const ContestPublicView: FC = () => {
     }
 
     if (contest.status === ContestStatus.ENDED)
-      return <PublicWinners contest={contest} refetchContest={refetch}/>
+      return <PublicWinners contest={contest} refetchContest={refetch} />
 
     if (!vote) return <ContestPublicStartVote onContestVoteCreated={setVote} />
 

@@ -48,8 +48,8 @@ const StartContestView: FunctionComponent = () => {
       </Typography>
       <Typography>
         If today you are a General Evaluator, Sergeant at Arms or were
-        instructed by a club's officer, use this tool to start a new Table Topics
-        voting session.
+        instructed by a club's officer, use this tool to start a new Table
+        Topics voting session.
       </Typography>
       <Button
         variant="contained"
@@ -63,7 +63,7 @@ const StartContestView: FunctionComponent = () => {
         }}
         disabled={loading}
       >
-        Start New Table Topics Session
+        Start a New Table Topics Session
       </Button>
       <Grow in={loading}>
         <CircularProgress />
