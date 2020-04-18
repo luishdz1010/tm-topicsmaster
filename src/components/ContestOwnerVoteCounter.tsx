@@ -59,9 +59,9 @@ const ContestOwnerVoteCounter: FC<{
                       <TableCell key={speakerId}>
                         <span
                           css={{
-                            display: 'block',
+                            display: 'inline-block',
                             fontSize: 20,
-                            transform: 'scale(1.5) translateX(-5%)',
+                            transform: 'scale(1.5)',
                           }}
                         >
                           {indexOfWinner > -1 &&

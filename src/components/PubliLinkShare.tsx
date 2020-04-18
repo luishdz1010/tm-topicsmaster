@@ -10,15 +10,20 @@ const PublicLinShare: FC<{ publicId: string }> = ({ publicId }) => {
   const publicLink = `${window.location.origin}/c/${publicId}`
 
   return (
-    <Box display="flex" flex="none" flexDirection={{ xs: 'column', sm: 'row' }} marginBottom={4}>
+    <Box
+      display="flex"
+      flex="none"
+      flexDirection={{ xs: 'column', sm: 'row' }}
+      marginBottom={4}
+    >
       <Box
         flex={1}
         marginBottom={{ xs: 2, sm: 0 }}
         marginRight={{ xs: 0, sm: 2 }}
       >
         <Typography>
-          Share this link with all members and guests attending the meeting:{' '}
-          <br />
+          Share the link below with all members and guests attending the
+          meeting. It allows them to vote for their favorite speakers:{' '}
           <a
             href={publicLink}
             target="_blank"
@@ -41,7 +46,7 @@ const PublicLinShare: FC<{ publicId: string }> = ({ publicId }) => {
           color="primary"
           css={{ minWidth: 'max-content', margin: 'auto 0' }}
         >
-          Copy to clipboard
+          Copy Link to clipboard
         </Button>
       </CopyToClipboard>
     </Box>

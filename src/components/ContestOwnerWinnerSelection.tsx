@@ -47,6 +47,7 @@ const ContestOwnerWinnerSelection: FC<{
       padding={3}
       mb={3}
       mt={6}
+      maxWidth="100%"
     >
       <Typography variant="h5" align="center" gutterBottom>
         Pick <em>the</em> winners

@@ -94,7 +94,7 @@ const Contest: FC<{
           nonLinear
           activeStep={activeStep}
           orientation="vertical"
-          css={{ flex: 1 }}
+          css={{ flex: 1, padding: 0, background: 'transparent' }}
         >
           {steps.map(({ label, children }, index) => (
             <Step key={index} completed={statusToStep[status] > index}>
