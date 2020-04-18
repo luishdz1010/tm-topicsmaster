@@ -37,6 +37,14 @@ const client = new AWSAppSyncClient({
 })
 
 const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#004165',
+    },
+    secondary: {
+      main: '#CD202C',
+    },
+  },
   typography: {
     fontFamily: [
       '-apple-system',
