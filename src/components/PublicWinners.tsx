@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core'
 import { ContestPublicProjection } from '../types'
 import { FC, Fragment, useLayoutEffect, useState } from 'react'
-import { Box, Typography } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import Winners from './Winners'
 
 const PublicWinners: FC<{

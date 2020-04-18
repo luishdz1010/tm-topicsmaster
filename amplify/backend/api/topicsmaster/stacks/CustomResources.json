@@ -395,7 +395,9 @@
         },
         "TypeName": "Contest",
         "FieldName": "id",
-        "DataSourceName": "None",
+        "DataSourceName": {
+          "Fn::GetAtt": ["DataSourceNone", "Name"]
+        },
         "RequestMappingTemplateS3Location": {
           "Fn::Sub": [
             "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/EmptyInput.req.vtl",
@@ -432,7 +434,9 @@
         },
         "TypeName": "Contest",
         "FieldName": "creatorIp",
-        "DataSourceName": "None",
+        "DataSourceName": {
+          "Fn::GetAtt": ["DataSourceNone", "Name"]
+        },
         "RequestMappingTemplateS3Location": {
           "Fn::Sub": [
             "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/EmptyInput.req.vtl",
@@ -469,7 +473,9 @@
         },
         "TypeName": "Contest",
         "FieldName": "endNotes",
-        "DataSourceName": "None",
+        "DataSourceName": {
+          "Fn::GetAtt": ["DataSourceNone", "Name"]
+        },
         "RequestMappingTemplateS3Location": {
           "Fn::Sub": [
             "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/EmptyInput.req.vtl",
@@ -506,7 +512,9 @@
         },
         "TypeName": "Contest",
         "FieldName": "speakers",
-        "DataSourceName": "None",
+        "DataSourceName": {
+          "Fn::GetAtt": ["DataSourceNone", "Name"]
+        },
         "RequestMappingTemplateS3Location": {
           "Fn::Sub": [
             "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/EmptyInput.req.vtl",
@@ -580,7 +588,9 @@
         },
         "TypeName": "Contest",
         "FieldName": "winners",
-        "DataSourceName": "None",
+        "DataSourceName": {
+          "Fn::GetAtt": ["DataSourceNone", "Name"]
+        },
         "RequestMappingTemplateS3Location": {
           "Fn::Sub": [
             "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/EmptyInput.req.vtl",
@@ -617,7 +627,9 @@
         },
         "TypeName": "ContestVote",
         "FieldName": "id",
-        "DataSourceName": "None",
+        "DataSourceName": {
+          "Fn::GetAtt": ["DataSourceNone", "Name"]
+        },
         "RequestMappingTemplateS3Location": {
           "Fn::Sub": [
             "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/EmptyInput.req.vtl",
